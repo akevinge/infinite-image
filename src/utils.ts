@@ -13,7 +13,7 @@ export const calcDisplayOffset = (
   display: HTMLElement,
   [clientX, clientY]: number[],
 ) => {
-  if (!clientX || !clientY) return;
+  if (clientX === undefined || clientY === undefined) return;
 
   const {
     width: frameWidth,
