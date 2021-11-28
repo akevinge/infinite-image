@@ -1,7 +1,6 @@
 /* eslint-disable */
 const esbuild = require("esbuild");
 const pkg = require("../package.json");
-const { dtsPlugin } = require("esbuild-plugin-d.ts");
 
 async function main() {
   esbuild.build({
@@ -20,7 +19,6 @@ async function main() {
     ],
     sourcemap: true,
     incremental: true,
-    // plugins: [dtsPlugin()],
     watch: {
       onRebuild(error) {
         if (error) {
