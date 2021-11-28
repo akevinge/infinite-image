@@ -5,24 +5,26 @@ export const InfiniteCanvas: React.FC = () => {
   const [top, setTop] = React.useState<number>(0);
   const [left, setLeft] = React.useState<number>(0);
 
+  const frameRef = React.useRef(null);
+  const displayRef = React.useRef(null);
+
   React.useEffect(() => {
-    const frame = document.getElementById("inf-canvas-frame");
-    const display = document.getElementById("inf-canvas-display");
-
-    if (frame && display) {
-      const { top, left } = calcDisplayCenter(frame, display);
-
+    if (frameRef.current && displayRef.current) {
+      const { top, left } = calcDisplayCenter(
+        frameRef.current,
+        displayRef.current,
+      );
       setTop(top);
       setLeft(left);
     }
   }, []);
 
   const onMouseMove: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    const frame = document.getElementById("inf-canvas-frame");
-    const display = document.getElementById("inf-canvas-display");
-
-    if (frame && display) {
-      const offsets = calcDisplayOffset(frame, display, [e.clientX, e.clientY]);
+    if (frameRef.current && displayRef.current) {
+      const offsets = calcDisplayOffset(frameRef.current, displayRef.current, [
+        e.clientX,
+        e.clientY,
+      ]);
       if (offsets) {
         setLeft(-offsets.offsetX);
         setTop(-offsets.offsetY);
@@ -41,6 +43,7 @@ export const InfiniteCanvas: React.FC = () => {
         position: "relative",
         background: "green",
       }}
+      ref={frameRef}
     >
       <div
         id="inf-canvas-display"
@@ -52,6 +55,7 @@ export const InfiniteCanvas: React.FC = () => {
           top: top,
           left: left,
         }}
+        ref={displayRef}
       >
         <div
           style={{
