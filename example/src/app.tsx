@@ -1,5 +1,10 @@
-import React from "react";
+import * as React from "react";
+import { InfiniteCanvas } from "@infinite-images";
 
 export default function App(): JSX.Element {
-  return <div></div>;
+  return (
+    <div>
+      <InfiniteCanvas />
+    </div>
+  );
 }

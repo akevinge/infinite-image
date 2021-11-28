@@ -4,11 +4,6 @@ const pkg = require("../package.json");
 const { dtsPlugin } = require("esbuild-plugin-d.ts");
 
 async function main() {
-  const external = [];
-
-  if (pkg.dependencies) external.push(Object.keys(pkg.dependencies));
-  if (pkg.peerDependencies) external.push(Object.keys(pkg.peerDependencies));
-
   esbuild.build({
     entryPoints: ["./src/index.ts"],
     outdir: "dist",
@@ -19,7 +14,10 @@ async function main() {
     jsxFactory: "React.createElement",
     jsxFragment: "React.Fragment",
     tsconfig: "./tsconfig.build.json",
-    external,
+    external: [
+      ...Object.keys(pkg.dependencies || {}),
+      ...Object.keys(pkg.peerDependencies || {}),
+    ],
     sourcemap: true,
     incremental: true,
     // plugins: [dtsPlugin()],

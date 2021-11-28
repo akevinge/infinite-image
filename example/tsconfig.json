@@ -1,12 +1,12 @@
 {
   "include": ["src"],
-  "exclude": ["node_modules", "dist", "docs"],
+  "exclude": ["node_modules", "dist"],
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
     "outDir": "./dist/types",
     "baseUrl": ".",
     "rootDir": "src",
     "jsx": "react-jsx",
+    "emitDeclarationOnly": false,
     "paths": {
       "~*": ["./src/*"],
       "@infinite-images": ["../"]
@@ -16,9 +16,5 @@
     {
       "path": "../"
     }
-  ],
-  "typedocOptions": {
-    "entryPoints": ["src/index.ts"],
-    "out": "docs"
-  }
+  ]
 }

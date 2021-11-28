@@ -11,7 +11,6 @@
     "composite": true, // defaults to -- declaration: true, rootDir: "./", incremental: true
     "declarationMap": true,
     "emitDeclarationOnly": true,
-    "allowSyntheticDefaultImports": true,
     "lib": ["dom", "esnext"],
     "jsx": "preserve",
     "outDir": "./dist/types",
