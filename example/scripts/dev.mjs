@@ -23,6 +23,16 @@ async function main() {
     ),
   );
 
+  fs.readdirSync("./src/styles").forEach((file) =>
+    fs.copyFile(
+      path.join("./src/styles", file),
+      path.join("./dist", file),
+      (err) => {
+        if (err) throw err;
+      },
+    ),
+  );
+
   try {
     await esbuildServe(
       {
