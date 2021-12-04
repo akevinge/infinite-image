@@ -74,7 +74,7 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
           position: "absolute",
           background: "red",
           transform: displayTrans,
-          transition: "transform 0.25s ease-out",
+          transition: "transform 0.45s ease-out",
         }}
         ref={displayRef}
       >
