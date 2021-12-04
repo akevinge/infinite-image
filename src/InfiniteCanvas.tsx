@@ -1,21 +1,43 @@
 import * as React from "react";
 import { calcDisplayCenter, calcDisplayOffset } from "~utils";
 
-export const InfiniteCanvas: React.FC = () => {
-  const [top, setTop] = React.useState<number>(0);
-  const [left, setLeft] = React.useState<number>(0);
+export interface InfiniteCanvasProps {
+  randomImagePos?: boolean;
+  frameWidth?: number | string;
+  frameHeight?: number | string;
+  displayWidth?: number | string;
+  displayHeight?: number | string;
+  displayPadding?: number | string;
+}
+
+const defaultFrameWidth = "100vw";
+const defaultFrameHeight = "100vh";
+const defaultDisplayWidth = "200vw";
+const defaultDisplayHeight = "200vh";
+const defaultDisplayPadding = "50px";
+
+export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
+  children,
+  frameWidth = defaultFrameWidth,
+  frameHeight = defaultFrameHeight,
+  displayWidth = defaultDisplayWidth,
+  displayHeight = defaultDisplayHeight,
+  displayPadding = defaultDisplayPadding,
+}) => {
+  const [displayTrans, setDisplayTrans] =
+    React.useState<string>("translate(0px,0px)");
+
+  const updateTrans = (x: number, y: number) => {
+    setDisplayTrans(`translate(${x}px, ${y}px)`);
+  };
 
   const frameRef = React.useRef(null);
   const displayRef = React.useRef(null);
 
   React.useEffect(() => {
     if (frameRef.current && displayRef.current) {
-      const { top, left } = calcDisplayCenter(
-        frameRef.current,
-        displayRef.current,
-      );
-      setTop(top);
-      setLeft(left);
+      const { x, y } = calcDisplayCenter(frameRef.current, displayRef.current);
+      updateTrans(x, y);
     }
   }, []);
 
@@ -26,8 +48,7 @@ export const InfiniteCanvas: React.FC = () => {
         e.clientY,
       ]);
       if (offsets) {
-        setLeft(-offsets.offsetX);
-        setTop(-offsets.offsetY);
+        updateTrans(-offsets.offsetX, -offsets.offsetY);
       }
     }
   };
@@ -38,8 +59,8 @@ export const InfiniteCanvas: React.FC = () => {
       onMouseMove={onMouseMove}
       style={{
         overflow: "hidden",
-        width: "100vw",
-        height: "100vh",
+        width: frameWidth,
+        height: frameHeight,
         position: "relative",
         background: "green",
       }}
@@ -48,37 +69,26 @@ export const InfiniteCanvas: React.FC = () => {
       <div
         id="inf-canvas-display"
         style={{
-          width: "200vw",
-          height: "200vh",
+          width: displayWidth,
+          height: displayHeight,
           position: "absolute",
           background: "red",
-          top: top,
-          left: left,
+          transform: displayTrans,
+          transition: "transform 0.25s ease-out",
         }}
         ref={displayRef}
       >
         <div
+          id="inf-canvas-display-padding"
           style={{
-            background: "yellow",
-            width: "50px",
-            height: "50px",
-            position: "absolute",
-            borderRadius: "100%",
-            top: "100px",
-            left: "100px",
+            width: "100%",
+            height: "100%",
+            boxSizing: "content-box",
+            padding: displayPadding,
           }}
-        ></div>
-        <div
-          style={{
-            background: "blue",
-            width: "50px",
-            height: "50px",
-            position: "absolute",
-            borderRadius: "100%",
-            bottom: "100px",
-            right: "100px",
-          }}
-        ></div>
+        >
+          {children}
+        </div>
       </div>
     </div>
   );

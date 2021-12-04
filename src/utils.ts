@@ -58,8 +58,8 @@ export const calcDisplayCenter = (frame: HTMLElement, display: HTMLElement) => {
   const { height: displayHeight, width: displayWidth } =
     display.getBoundingClientRect();
 
-  const top = (frameHeight - displayHeight) / 2;
-  const left = (frameWidth - displayWidth) / 2;
+  const x = (frameWidth - displayWidth) / 2;
+  const y = (frameHeight - displayHeight) / 2;
 
-  return { top, left };
+  return { x, y };
 };
