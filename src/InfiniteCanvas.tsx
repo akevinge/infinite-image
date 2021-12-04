@@ -1,4 +1,5 @@
 import * as React from "react";
+import { usePoissonGeneration } from "~usePoissonGeneration";
 import { calcDisplayCenter, calcDisplayOffset } from "~utils";
 
 export interface InfiniteCanvasProps {
@@ -14,7 +15,7 @@ const defaultFrameWidth = "100vw";
 const defaultFrameHeight = "100vh";
 const defaultDisplayWidth = "200vw";
 const defaultDisplayHeight = "200vh";
-const defaultDisplayPadding = "50px";
+const defaultDisplayPadding = "150px";
 
 export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
   children,
@@ -33,6 +34,7 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
 
   const frameRef = React.useRef(null);
   const displayRef = React.useRef(null);
+  const displayInnerRef = React.useRef(null);
 
   React.useEffect(() => {
     if (frameRef.current && displayRef.current) {
@@ -52,6 +54,14 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
       }
     }
   };
+
+  const points = usePoissonGeneration({
+    displayEl: displayInnerRef.current,
+    displayElPadding:
+      typeof displayPadding === "string"
+        ? parseInt(displayPadding.toString().split("px")[0])
+        : displayPadding,
+  });
 
   return (
     <div
@@ -83,10 +93,24 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
           style={{
             width: "100%",
             height: "100%",
-            boxSizing: "content-box",
+            boxSizing: "border-box",
             padding: displayPadding,
+            position: "relative",
           }}
+          ref={displayInnerRef}
         >
+          {points.map(([x, y], i) => (
+            <div
+              key={i}
+              style={{
+                width: "10px",
+                height: "10px",
+                background: "black",
+                position: "absolute",
+                transform: `translate(${x}px, ${y}px)`,
+              }}
+            ></div>
+          ))}
           {children}
         </div>
       </div>

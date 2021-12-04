@@ -1,6 +1,7 @@
 {
   "include": ["src"],
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "rootDir": "src",
     "target": "es6",
     "strict": true,

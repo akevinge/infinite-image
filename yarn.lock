@@ -7,6 +7,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.10.tgz#2e3ad0a680d96367103d3e670d41c2fed3da61ae"
   integrity sha512-3aRnHa1KlOEEhJ6+CvyHKK5vE9BcLGjtUpwvqYLRvYNQKMfabu3BwfJaA/SLW8dxe28LsNDjtHwePTuzn3gmOA==
 
+"@types/poisson-disk-sampling@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@types/poisson-disk-sampling/-/poisson-disk-sampling-2.2.0.tgz#a453fbfc3c18ea43c2f5fbd4e2895137fa01ba22"
+  integrity sha512-fbIHI+bjFksBhFW2BZRpS2Kk4aMhZcs7U1ohVGjteD4F4TS5CJ2G/SinXyueuIY7PDeJX3SgJe+cwfjBgT6Sdw==
+
 "@types/prop-types@*":
   version "15.7.4"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.4.tgz#fcf7205c25dff795ee79af1e30da2c9790808f11"
@@ -183,10 +188,22 @@ mixly@^1.0.0:
   dependencies:
     fulcon "^1.0.1"
 
+moore@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/moore/-/moore-1.0.0.tgz#1d2b298c32cfd330db0fe81a0b5bac319fd9eb65"
+  integrity sha1-HSspjDLP0zDbD+gaC1usMZ/Z62U=
+
 object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
+
+poisson-disk-sampling@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/poisson-disk-sampling/-/poisson-disk-sampling-2.2.2.tgz#d326f6be7e1704e1d54e6a024bd44a3fb33120e5"
+  integrity sha512-N+P2Tydw9leBaTyOwKQv12sgLGkvsZTfa6pHRD8QlbdzFN5gJ0ByzkQrwwKr3W2bxenWgktf9hb4m/RqQ+id4Q==
+  dependencies:
+    moore "~1.0.0"
 
 react-dom@^17.0.2:
   version "17.0.2"
