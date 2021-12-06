@@ -1,13 +1,15 @@
 import * as React from "react";
 
 interface ImageWrapProps {
+  imgSrc: string;
   center: number[];
   id: number;
   displayEl: HTMLElement | null;
   imageTransformRadius: number;
 }
 
-export const ImageWrap: React.FC<ImageWrapProps> = ({
+const ImageWrapComponent: React.FC<ImageWrapProps> = ({
+  imgSrc,
   children,
   center,
   displayEl,
@@ -77,19 +79,20 @@ export const ImageWrap: React.FC<ImageWrapProps> = ({
       }}
     >
       <div style={{ position: "absolute" }}>
-        {React.cloneElement(
-          React.Children.only(children) as React.ReactElement,
-          {
-            style: {
-              transform: scale,
-              transformOrigin: "center center",
-              transition: "transform 0.2s ease-out",
-            },
-            ref: imageRef,
-            onLoad,
-          },
-        )}
+        <img
+          src={imgSrc}
+          alt=""
+          style={{
+            transform: scale,
+            transformOrigin: "center center",
+            transition: "transform 0.2s ease-out",
+          }}
+          ref={imageRef}
+          onLoad={onLoad}
+        />
       </div>
     </div>
   );
 };
+
+export const ImageWrap = React.memo(ImageWrapComponent);

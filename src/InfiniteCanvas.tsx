@@ -4,6 +4,7 @@ import { usePoissonGeneration } from "~usePoissonGeneration";
 import { calcDisplayCenter, calcDisplayOffset } from "~utils";
 
 export interface InfiniteCanvasProps {
+  imageSrcs: string[];
   randomImagePos?: boolean;
   frameWidth?: number | string;
   frameHeight?: number | string;
@@ -13,6 +14,7 @@ export interface InfiniteCanvasProps {
   imageTransformRadius?: number; // radius must be in pixels
 }
 
+const defaultRandomImagePos = true;
 const defaultFrameWidth = "100vw";
 const defaultFrameHeight = "100vh";
 const defaultDisplayWidth = "200vw";
@@ -22,6 +24,8 @@ const defaultImageTransformRadius = 400;
 
 export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
   children,
+  imageSrcs,
+  randomImagePos = defaultRandomImagePos,
   frameWidth = defaultFrameWidth,
   frameHeight = defaultFrameHeight,
   displayWidth = defaultDisplayWidth,
@@ -116,18 +120,20 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
               }}
             ></div>
           ))}
-          {points.length > 0 &&
-            React.Children.map(children, (child, i) => (
+          {!randomImagePos && children}
+          {randomImagePos &&
+            points.length > 0 &&
+            imageSrcs.map((src, i) => (
               <>
                 {typeof points[i] !== "undefined" && (
                   <ImageWrap
+                    imgSrc={src}
+                    key={i}
                     imageTransformRadius={imageTransformRadius}
                     id={i}
                     center={points[i]}
                     displayEl={displayInnerRef.current}
-                  >
-                    {child}
-                  </ImageWrap>
+                  />
                 )}
               </>
             ))}

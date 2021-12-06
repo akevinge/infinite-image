@@ -10,11 +10,9 @@ export default function App(): JSX.Element {
         alignItems: "center",
       }}
     >
-      <InfiniteCanvas>
-        {Array.from({ length: 20 }, (_, i) => (
-          <img src="https://picsum.photos/400/500" alt="" key={i} />
-        ))}
-      </InfiniteCanvas>
+      <InfiniteCanvas
+        imageSrcs={Array(20).fill("https://picsum.photos/400/500")}
+      />
     </div>
   );
 }
