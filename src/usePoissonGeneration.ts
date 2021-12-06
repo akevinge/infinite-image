@@ -22,7 +22,7 @@ export const usePoissonGeneration = ({
 
       const pds = new PoissonDiskSampling({
         shape: dimensions,
-        minDistance: dimensions[0] / 10,
+        minDistance: dimensions[0] / 7,
         maxDistance: dimensions[0] / 5,
         tries: 20,
       });

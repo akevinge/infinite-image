@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ImageWrap } from "~ImageWrap";
 import { usePoissonGeneration } from "~usePoissonGeneration";
 import { calcDisplayCenter, calcDisplayOffset } from "~utils";
 
@@ -9,6 +10,7 @@ export interface InfiniteCanvasProps {
   displayWidth?: number | string;
   displayHeight?: number | string;
   displayPadding?: number | string;
+  imageTransformRadius?: number; // radius must be in pixels
 }
 
 const defaultFrameWidth = "100vw";
@@ -16,6 +18,7 @@ const defaultFrameHeight = "100vh";
 const defaultDisplayWidth = "200vw";
 const defaultDisplayHeight = "200vh";
 const defaultDisplayPadding = "150px";
+const defaultImageTransformRadius = 400;
 
 export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
   children,
@@ -24,6 +27,7 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
   displayWidth = defaultDisplayWidth,
   displayHeight = defaultDisplayHeight,
   displayPadding = defaultDisplayPadding,
+  imageTransformRadius = defaultImageTransformRadius,
 }) => {
   const [displayTrans, setDisplayTrans] =
     React.useState<string>("translate(0px,0px)");
@@ -105,13 +109,28 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
               style={{
                 width: "10px",
                 height: "10px",
-                background: "black",
+                background: "green",
                 position: "absolute",
+                zIndex: 99999,
                 transform: `translate(${x}px, ${y}px)`,
               }}
             ></div>
           ))}
-          {children}
+          {points.length > 0 &&
+            React.Children.map(children, (child, i) => (
+              <>
+                {typeof points[i] !== "undefined" && (
+                  <ImageWrap
+                    imageTransformRadius={imageTransformRadius}
+                    id={i}
+                    center={points[i]}
+                    displayEl={displayInnerRef.current}
+                  >
+                    {child}
+                  </ImageWrap>
+                )}
+              </>
+            ))}
         </div>
       </div>
     </div>
