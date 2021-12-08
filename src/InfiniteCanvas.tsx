@@ -104,24 +104,11 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
           }}
           ref={displayInnerRef}
         >
-          {points.map(([x, y], i) => (
-            <div
-              key={i}
-              style={{
-                width: "10px",
-                height: "10px",
-                background: "green",
-                position: "absolute",
-                zIndex: 99999,
-                transform: `translate(${x}px, ${y}px)`,
-              }}
-            ></div>
-          ))}
           {!randomImagePos && children}
           {randomImagePos &&
             points.length > 0 &&
             imageSrcs.map((src, i) => (
-              <>
+              <React.Fragment key={i + "frag"}>
                 {typeof points[i] !== "undefined" && (
                   <ImageWrap
                     imgSrc={src}
@@ -133,7 +120,7 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
                     displayEl={displayInnerRef.current}
                   />
                 )}
-              </>
+              </React.Fragment>
             ))}
         </div>
       </div>
