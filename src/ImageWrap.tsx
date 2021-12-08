@@ -6,6 +6,7 @@ interface ImageWrapProps {
   center: number[];
   id: number;
   displayEl: HTMLElement | null;
+  displayPad: number;
   imageTransformRadius: number;
 }
 
@@ -13,6 +14,7 @@ const ImageWrapComponent: React.FC<ImageWrapProps> = ({
   imgSrc,
   center,
   displayEl,
+  displayPad,
   imageTransformRadius,
   id,
 }) => {
@@ -47,6 +49,7 @@ const ImageWrapComponent: React.FC<ImageWrapProps> = ({
     if (displayEl) {
       const distRatio = calcDistRatio(
         displayEl,
+        displayPad,
         [e.clientX, e.clientY],
         [center[0], center[1]],
         imageTransformRadius,

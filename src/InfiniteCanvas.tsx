@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ImageWrap } from "~ImageWrap";
 import { usePoissonGeneration } from "~usePoissonGeneration";
-import { calcDisplayCenter, calcDisplayOffset } from "~utils";
+import { calcDisplayCenter, calcDisplayOffset, pxToNum } from "~utils";
 
 export interface InfiniteCanvasProps {
   imageSrcs: string[];
@@ -65,10 +65,7 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
 
   const points = usePoissonGeneration({
     displayEl: displayInnerRef.current,
-    displayElPadding:
-      typeof displayPadding === "string"
-        ? parseInt(displayPadding.toString().split("px")[0])
-        : displayPadding,
+    displayElPadding: pxToNum(displayPadding),
   });
 
   return (
@@ -129,6 +126,7 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
                   <ImageWrap
                     imgSrc={src}
                     key={i}
+                    displayPad={pxToNum(displayPadding)}
                     imageTransformRadius={imageTransformRadius}
                     id={i}
                     center={points[i]}

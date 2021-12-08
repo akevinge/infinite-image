@@ -65,7 +65,7 @@ export const calcDisplayCenter = (frame: HTMLElement, display: HTMLElement) => {
 };
 
 /**
- * @param el
+ * @param parentEl
  * Parent element
  * @param clientArray
  * Coordinates of mouse relative to the viewport
@@ -74,7 +74,8 @@ export const calcDisplayCenter = (frame: HTMLElement, display: HTMLElement) => {
  * @returns distance ratio
  */
 export const calcDistRatio = (
-  el: HTMLElement,
+  parentEl: HTMLElement,
+  parentPad: number,
   [clientX, clientY]: number[],
   [originX, originY]: number[],
   radius: number, // not actually radius! (more like a square)
@@ -87,11 +88,11 @@ export const calcDistRatio = (
   )
     return;
 
-  const { left, top } = el.getBoundingClientRect();
+  const { left, top } = parentEl.getBoundingClientRect();
 
   // calc mouse position relative to parent, respects padding
-  const mouseX = clientX - left - 150;
-  const mouseY = clientY - top - 150;
+  const mouseX = clientX - left - parentPad;
+  const mouseY = clientY - top - parentPad;
 
   // dist of mouse from origin
   const dist = Math.sqrt((mouseX - originX) ** 2 + (mouseY - originY) ** 2);
@@ -100,3 +101,6 @@ export const calcDistRatio = (
 
   return ratio;
 };
+
+export const pxToNum = (v: string | number) =>
+  typeof v === "string" ? parseInt(v.toString().split("px")[0]) : v;
