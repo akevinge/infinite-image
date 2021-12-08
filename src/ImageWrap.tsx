@@ -1,4 +1,5 @@
 import * as React from "react";
+import { calcDistRatio } from "~utils";
 
 interface ImageWrapProps {
   imgSrc: string;
@@ -44,17 +45,15 @@ const ImageWrapComponent: React.FC<ImageWrapProps> = ({
 
   const onMouseMove = (e: MouseEvent) => {
     if (displayEl) {
-      const { left, top } = displayEl.getBoundingClientRect();
-      const mouseX = e.clientX - left - 150;
-      const mouseY = e.clientY - top - 150;
-
-      const dist = Math.sqrt(
-        (mouseX - center[0]) ** 2 + (mouseY - center[1]) ** 2,
+      const distRatio = calcDistRatio(
+        displayEl,
+        [e.clientX, e.clientY],
+        [center[0], center[1]],
+        imageTransformRadius,
       );
 
-      const newScale = (imageTransformRadius - dist) / imageTransformRadius;
-      if (newScale > 0) {
-        updateScale(newScale * 3 + defaultScale);
+      if (distRatio && distRatio > 0) {
+        updateScale(distRatio + defaultScale);
       }
     }
   };

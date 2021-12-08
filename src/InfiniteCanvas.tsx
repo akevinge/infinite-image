@@ -20,7 +20,7 @@ const defaultFrameHeight = "100vh";
 const defaultDisplayWidth = "200vw";
 const defaultDisplayHeight = "200vh";
 const defaultDisplayPadding = "150px";
-const defaultImageTransformRadius = 400;
+const defaultImageTransformRadius = 600;
 
 export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
   children,
