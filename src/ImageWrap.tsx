@@ -10,7 +10,6 @@ interface ImageWrapProps {
 
 const ImageWrapComponent: React.FC<ImageWrapProps> = ({
   imgSrc,
-  children,
   center,
   displayEl,
   imageTransformRadius,
@@ -45,7 +44,7 @@ const ImageWrapComponent: React.FC<ImageWrapProps> = ({
 
   const onMouseMove = (e: MouseEvent) => {
     if (displayEl) {
-      const { width, height, left, top } = displayEl.getBoundingClientRect();
+      const { left, top } = displayEl.getBoundingClientRect();
       const mouseX = e.clientX - left - 150;
       const mouseY = e.clientY - top - 150;
 
@@ -55,7 +54,7 @@ const ImageWrapComponent: React.FC<ImageWrapProps> = ({
 
       const newScale = (imageTransformRadius - dist) / imageTransformRadius;
       if (newScale > 0) {
-        updateScale(newScale + defaultScale);
+        updateScale(newScale * 3 + defaultScale);
       }
     }
   };

@@ -11,7 +11,7 @@ export default function App(): JSX.Element {
       }}
     >
       <InfiniteCanvas
-        imageSrcs={Array(20).fill("https://picsum.photos/400/500")}
+        imageSrcs={Array(20).fill("https://picsum.photos/200/300")}
       />
     </div>
   );
