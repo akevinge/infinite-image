@@ -6,8 +6,9 @@
   "repository": "https://github.com/innub/infinite-image",
   "author": "innuB",
   "license": "MIT",
+  "types": "dist/types/InfiniteCanvas.d.ts",
   "scripts": {
-    "dev": "yarn react-link && node ./scripts/dev",
+    "dev": "yarn react-link && tsc && node ./scripts/dev",
     "react-link": "cd node_modules/react && yarn link && cd ../../example && yarn link react"
   },
   "peerDependencies": {

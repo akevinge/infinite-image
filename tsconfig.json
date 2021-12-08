@@ -6,7 +6,7 @@
     "target": "es6",
     "strict": true,
     "baseUrl": ".",
-    "module": "esnext",
+    "module": "ESNext",
     "moduleResolution": "Node", // refer to: https://www.typescriptlang.org/docs/handbook/module-resolution.html
     "resolveJsonModule": true,
     "composite": true, // defaults to -- declaration: true, rootDir: "./", incremental: true

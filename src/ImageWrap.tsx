@@ -31,13 +31,11 @@ const ImageWrapComponent: React.FC<ImageWrapProps> = ({
     setTrans(`translate(${x}px, ${y}px)`);
 
   const originalImgDim = React.useRef<number[]>([]);
-  const imageRef = React.useRef(null);
+  const imageRef = React.useRef<HTMLImageElement>(null);
 
   const onLoad = () => {
     if (imageRef.current) {
-      const { width, height } = (
-        imageRef.current as HTMLElement
-      ).getBoundingClientRect();
+      const { width, height } = imageRef.current.getBoundingClientRect();
 
       originalImgDim.current = [width, height];
 

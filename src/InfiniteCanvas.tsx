@@ -40,9 +40,9 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
     setDisplayTrans(`translate(${x}px, ${y}px)`);
   };
 
-  const frameRef = React.useRef(null);
-  const displayRef = React.useRef(null);
-  const displayInnerRef = React.useRef(null);
+  const frameRef = React.useRef<HTMLDivElement>(null);
+  const displayRef = React.useRef<HTMLDivElement>(null);
+  const displayInnerRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     if (frameRef.current && displayRef.current) {
