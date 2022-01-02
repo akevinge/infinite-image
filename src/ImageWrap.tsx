@@ -8,17 +8,26 @@ interface ImageWrapProps {
   displayEl: HTMLElement | null;
   displayPad: number;
   imageTransformRadius: number;
+  scaleCoeff: number; // the size that the image can grow too, affects visible scale speed too
 }
 
 export const ImageWrap = React.memo<ImageWrapProps>(
-  ({ imgSrc, center, displayEl, displayPad, imageTransformRadius, id }) => {
+  ({
+    imgSrc,
+    center,
+    displayEl,
+    displayPad,
+    imageTransformRadius,
+    id,
+    scaleCoeff,
+  }) => {
     const defaultScale = 1.0;
 
-    const [scale, setScale] = React.useState<string>(`scale(${defaultScale}`);
+    const [scale, setScale] = React.useState<string>(`scale(${defaultScale})`);
     const [trans, setTrans] = React.useState<string>("");
 
     const updateScale = (sx: number) => {
-      setScale(`scale(${sx}`);
+      setScale(`scale(${sx})`);
     };
 
     const updateTrans = (x: number, y: number) =>
@@ -48,10 +57,13 @@ export const ImageWrap = React.memo<ImageWrapProps>(
         );
 
         if (distRatio && distRatio > 0) {
-          updateScale(distRatio + defaultScale);
+          updateScale((distRatio + defaultScale) * scaleCoeff);
+        } else {
+          updateScale(defaultScale);
         }
       }
     };
+
     React.useEffect(() => {
       if (displayEl) {
         displayEl.addEventListener("mousemove", onMouseMove);

@@ -12,6 +12,7 @@ export interface InfiniteCanvasProps {
   displayHeight?: number | string;
   displayPadding?: number | string;
   imageTransformRadius?: number; // radius must be in pixels
+  scaleCoeff: number;
 }
 
 const defaultRandomImagePos = true;
@@ -21,6 +22,7 @@ const defaultDisplayWidth = "200vw";
 const defaultDisplayHeight = "200vh";
 const defaultDisplayPadding = "150px";
 const defaultImageTransformRadius = 600;
+const defaultScaleCoeff = 1.4;
 
 export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
   children,
@@ -32,6 +34,7 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
   displayHeight = defaultDisplayHeight,
   displayPadding = defaultDisplayPadding,
   imageTransformRadius = defaultImageTransformRadius,
+  scaleCoeff = defaultScaleCoeff,
 }) => {
   const [displayTrans, setDisplayTrans] =
     React.useState<string>("translate(0px,0px)");
@@ -79,7 +82,6 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
         width: frameWidth,
         height: frameHeight,
         position: "relative",
-        background: "green",
       }}
       ref={frameRef}
     >
@@ -89,7 +91,6 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
           width: displayWidth,
           height: displayHeight,
           position: "absolute",
-          background: "red",
           transform: displayTrans,
           transition: "transform 0.45s ease-out",
         }}
@@ -113,6 +114,7 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
               <React.Fragment key={i + "frag"}>
                 {typeof points[i] !== "undefined" && (
                   <ImageWrap
+                    scaleCoeff={defaultScaleCoeff}
                     imgSrc={src}
                     key={i}
                     displayPad={pxToNum(displayPadding)}
