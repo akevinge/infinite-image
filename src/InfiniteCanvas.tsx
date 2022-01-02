@@ -94,7 +94,7 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
           height: displayHeight,
           position: "absolute",
           transform: displayTrans,
-          transition: "transform 0.45s ease-out",
+          transition: "transform 0.45s cubic-bezier(0, 0, 0.26, 0.83) 0s",
         }}
         ref={displayRef}
       >
