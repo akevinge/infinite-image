@@ -12,29 +12,31 @@ export interface InfiniteCanvasProps {
   displayHeight?: number | string;
   displayPadding?: number | string;
   imageTransformRadius?: number; // radius must be in pixels
-  scaleCoeff: number;
+  imageScaleCoeff: number; // the size that the image can grow too, affects visible scale speed too
 }
 
-const defaultRandomImagePos = true;
-const defaultFrameWidth = "100vw";
-const defaultFrameHeight = "100vh";
-const defaultDisplayWidth = "200vw";
-const defaultDisplayHeight = "200vh";
-const defaultDisplayPadding = "150px";
-const defaultImageTransformRadius = 600;
-const defaultScaleCoeff = 1.4;
+const defaultProps: Required<Omit<InfiniteCanvasProps, "imageSrcs">> = {
+  randomImagePos: true,
+  frameWidth: "100vw",
+  frameHeight: "100vh",
+  displayWidth: "200vw",
+  displayHeight: "200vh",
+  displayPadding: "150px",
+  imageTransformRadius: 600,
+  imageScaleCoeff: 1.4,
+};
 
 export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
   children,
   imageSrcs,
-  randomImagePos = defaultRandomImagePos,
-  frameWidth = defaultFrameWidth,
-  frameHeight = defaultFrameHeight,
-  displayWidth = defaultDisplayWidth,
-  displayHeight = defaultDisplayHeight,
-  displayPadding = defaultDisplayPadding,
-  imageTransformRadius = defaultImageTransformRadius,
-  scaleCoeff = defaultScaleCoeff,
+  randomImagePos = defaultProps.randomImagePos,
+  frameWidth = defaultProps.frameWidth,
+  frameHeight = defaultProps.frameHeight,
+  displayWidth = defaultProps.displayWidth,
+  displayHeight = defaultProps.displayHeight,
+  displayPadding = defaultProps.displayPadding,
+  imageTransformRadius = defaultProps.imageTransformRadius,
+  imageScaleCoeff = defaultProps.imageScaleCoeff,
 }) => {
   const [displayTrans, setDisplayTrans] =
     React.useState<string>("translate(0px,0px)");
@@ -114,7 +116,7 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
               <React.Fragment key={i + "frag"}>
                 {typeof points[i] !== "undefined" && (
                   <ImageWrap
-                    scaleCoeff={defaultScaleCoeff}
+                    scaleCoeff={imageScaleCoeff}
                     imgSrc={src}
                     key={i}
                     displayPad={pxToNum(displayPadding)}
