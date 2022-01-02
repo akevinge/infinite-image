@@ -44,12 +44,14 @@ export const InfiniteCanvas: React.FC<InfiniteCanvasProps> = ({
   const displayRef = React.useRef<HTMLDivElement>(null);
   const displayInnerRef = React.useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
+  const setCenter = () => {
     if (frameRef.current && displayRef.current) {
       const { x, y } = calcDisplayCenter(frameRef.current, displayRef.current);
       updateTrans(x, y);
     }
-  }, []);
+  };
+
+  React.useEffect(() => setCenter(), []);
 
   const onMouseMove: React.MouseEventHandler<HTMLDivElement> = (e) => {
     if (frameRef.current && displayRef.current) {
